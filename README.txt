@@ -1,4 +1,4 @@
-HEAT CONTROL – DEMO 0.1.0
+HEAT CONTROL – DEMO 0.2.0
 ==========================
 
 Co demo umí
@@ -10,10 +10,15 @@ Co demo umí
 - Nastavování tří ukázkových požadovaných hodnot.
 - Přehled zařízení a diagnostiky.
 - Rozhraní přizpůsobené iPhonu.
+- Přihlašovací obrazovka při každém otevření stránky.
+- Vzorový přístupový kód: 1234.
+- Ruční odhlášení a opětovné přihlášení po návratu z pozadí.
 
 DŮLEŽITÉ
 --------
-Jde o demonstrační aplikaci. Nečte skutečnou SQLite databázi, neposílá příkazy
+Jde o demonstrační aplikaci. Přihlášení s kódem 1234 je pouze ukázka na straně prohlížeče;
+nepředstavuje skutečné zabezpečení a heslo lze zjistit ze zdrojových souborů.
+Nepoužívej zde skutečné heslo ani citlivá data. Aplikace nečte skutečnou SQLite databázi, neposílá příkazy
 na Raspberry Pi/ESP a nijak neovládá kotel. Všechna data jsou simulovaná.
 
 INSTALACE NA IPHONE – DOPORUČENÁ CESTA PŘES HTTPS
@@ -41,7 +46,8 @@ POZNÁMKA K SOUKROMÍ
 -------------------
 Pokud použiješ veřejné GitHub Pages, demo bude veřejně dostupné každému,
 kdo zná adresu. Neobsahuje žádná skutečná data ani přihlašovací údaje.
-Pro pozdější napojení na domácí systém zvolíme privátní přístup přes Tailscale
+Přihlašovací obrazovka sama o sobě nezabezpečuje veřejně hostovanou aplikaci ani její data.
+Pro pozdější napojení na domácí systém zvolíme skutečné ověření na API a privátní přístup přes Tailscale
 a API na Raspberry Pi; tajné klíče se nikdy nevkládají do front-endu.
 
 LOKÁLNÍ NÁHLED NA WINDOWS

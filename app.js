@@ -2,6 +2,7 @@ const $ = id => document.getElementById(id);
 let values = {boiler:68.4,top:72.1,mid:58.3,supply:46.8,ret:38.2,bottom:39.4};
 let rangeHours = 6;
 let chart;
+let readTimer = null;
 const fmt = n => n.toFixed(1);
 function updateReadings(){
   // Small deterministic-looking drift to make the demo feel alive.
@@ -60,6 +61,52 @@ function drawChart(){
  for(let i=0;i<=4;i++){let x=p.l+i/4*cw;ctx.fillText('-'+Math.round(rangeHours*(1-i/4))+' h',x,h-17)}
 }
 window.addEventListener('resize',()=>{if($('page-charts').classList.contains('active'))drawChart()});
-updateReadings();setInterval(updateReadings,3500);
+function startApp(){
+  updateReadings();
+  if(readTimer===null) readTimer=setInterval(updateReadings,3500);
+}
+function stopApp(){
+  if(readTimer!==null){clearInterval(readTimer);readTimer=null;}
+}
+
+// Demo sign-in: the PIN is intentionally a front-end example, not real security.
+const DEMO_PIN = '1234';
+const loginScreen = $('login-screen');
+const loginForm = $('login-form');
+const loginInput = $('login-password');
+const loginError = $('login-error');
+function lockApp(){
+  stopApp();
+  document.body.classList.add('auth-locked');
+  loginScreen.hidden = false;
+  loginInput.value = '';
+  loginError.textContent = '';
+  setTimeout(()=>loginInput.focus(), 80);
+}
+function unlockApp(){
+  loginScreen.hidden = true;
+  document.body.classList.remove('auth-locked');
+  loginError.textContent = '';
+  startApp();
+  if($('page-charts').classList.contains('active')) setTimeout(drawChart,80);
+}
+loginForm.addEventListener('submit',event=>{
+  event.preventDefault();
+  if(loginInput.value === DEMO_PIN){
+    unlockApp();
+  }else{
+    loginError.textContent = 'Nesprávný přístupový kód. Zkuste to znovu.';
+    loginInput.value = '';
+    loginInput.focus();
+  }
+});
+$('logout-button').addEventListener('click',lockApp);
+// Require the demo PIN again when returning to the app after it was backgrounded.
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState === 'hidden' && !document.body.classList.contains('auth-locked')) lockApp();
+});
+window.addEventListener('pageshow',()=>{
+  if(document.body.classList.contains('auth-locked')) setTimeout(()=>loginInput.focus(),100);
+});
 
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) { window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{})); }

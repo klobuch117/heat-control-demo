@@ -12,11 +12,31 @@
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="auth-locked">
+  <section class="login-screen" id="login-screen" aria-labelledby="login-title">
+    <div class="login-card">
+      <div class="login-brand-mark">H</div>
+      <div class="login-eyebrow">DOMÁCÍ REGULAČNÍ SYSTÉM</div>
+      <h1 id="login-title">HEAT CONTROL</h1>
+      <p class="login-description">Pro pokračování zadejte přístupový kód.</p>
+      <form id="login-form" autocomplete="off">
+        <label for="login-password">Přístupový kód</label>
+        <input id="login-password" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="••••" autocomplete="off" enterkeyhint="go" required aria-describedby="login-hint login-error">
+        <div class="login-error" id="login-error" role="alert" aria-live="polite"></div>
+        <button class="login-submit" type="submit">Přihlásit se <span>→</span></button>
+      </form>
+      <div class="login-hint" id="login-hint">DEMO PŘÍSTUP · VZOROVÉ HESLO: <b>1234</b></div>
+      <div class="login-footer"><span class="pulse"></span> Lokální demonstrační režim</div>
+    </div>
+  </section>
+
   <div class="app-shell">
     <header class="topbar">
       <div class="brand"><div class="brand-mark">H</div><div><div class="brand-name">HEAT CONTROL</div><div class="brand-sub">ŘÍDICÍ SYSTÉM · DEMO</div></div></div>
-      <div class="live"><span class="pulse"></span> SIMULACE</div>
+      <div class="top-actions">
+        <div class="live"><span class="pulse"></span> SIMULACE</div>
+        <button class="logout-btn" id="logout-button" type="button" aria-label="Odhlásit se">Odhlásit</button>
+      </div>
     </header>
 
     <main>
@@ -132,7 +152,7 @@
           <div class="device"><div class="device-icon">ESP</div><div class="device-main"><b>ESP – topný okruh</b><small>Čerpadlo a směšovací ventil</small><small>Poslední kontakt: před 6 s</small></div><span class="state-on">ONLINE</span></div>
           <div class="device"><div class="device-icon">DB</div><div class="device-main"><b>SQLite databáze</b><small>Lokální databáze · demo bez připojení</small><small>Čeká na napojení skutečného schématu</small></div><span class="state-wait">DEMO</span></div>
         </div>
-        <div class="panel diagnostics"><div class="panel-title">DIAGNOSTIKA</div><div class="diag-row"><span>Dostupnost systému</span><b class="good">100 %</b></div><div class="diag-row"><span>Komunikace API</span><b class="muted">Nepřipojeno</b></div><div class="diag-row"><span>Datový zdroj</span><b class="muted">Simulátor</b></div><div class="diag-row"><span>Verze aplikace</span><b>0.1.0-demo</b></div></div>
+        <div class="panel diagnostics"><div class="panel-title">DIAGNOSTIKA</div><div class="diag-row"><span>Dostupnost systému</span><b class="good">100 %</b></div><div class="diag-row"><span>Komunikace API</span><b class="muted">Nepřipojeno</b></div><div class="diag-row"><span>Datový zdroj</span><b class="muted">Simulátor</b></div><div class="diag-row"><span>Verze aplikace</span><b>0.2.0-demo</b></div></div>
       </section>
     </main>
 
