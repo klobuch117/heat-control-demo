@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1220">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Heat Control">
+  <title>HEAT CONTROL</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark">H</div><div><div class="brand-name">HEAT CONTROL</div><div class="brand-sub">ŘÍDICÍ SYSTÉM · DEMO</div></div></div>
+      <div class="live"><span class="pulse"></span> SIMULACE</div>
+    </header>
+
+    <main>
+      <section class="page active" id="page-overview">
+        <div class="section-head"><div><div class="eyebrow">CENTRÁLNÍ PŘEHLED</div><h1>Stav vytápění</h1></div><div class="updated">AKTUALIZACE<br><b id="updated">právě teď</b></div></div>
+        <div class="hero-grid">
+          <div class="panel schematic-panel">
+            <div class="panel-title"><span>TECHNOLOGICKÉ SCHÉMA</span><span class="tiny-tag">ONLINE</span></div>
+            <svg class="scheme" viewBox="0 0 700 390" role="img" aria-label="Schéma kotle, akumulační nádrže a radiátorového okruhu">
+              <defs>
+                <linearGradient id="tank" x1="0" x2="1"><stop stop-color="#1b3447"/><stop offset=".5" stop-color="#274d61"/><stop offset="1" stop-color="#142b3d"/></linearGradient>
+                <linearGradient id="boiler" x1="0" x2="1"><stop stop-color="#263849"/><stop offset="1" stop-color="#172637"/></linearGradient>
+                <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <!-- pipe runs -->
+              <path class="pipe cold" d="M145 170 H220 V280 H340"/>
+              <path class="pipe hot flowline" d="M145 112 H220 V78 H430 V112"/>
+              <path class="pipe hot flowline" d="M510 112 H590 V78 H640 V170"/>
+              <path class="pipe return flowline" d="M640 235 V330 H220 V220 H145"/>
+              <path class="pipe hot flowline" d="M510 155 H565 V185 H590"/>
+              <path class="pipe return flowline" d="M590 220 H550 V260 H510"/>
+              <!-- boiler -->
+              <rect x="28" y="100" width="118" height="145" rx="13" fill="url(#boiler)" stroke="#527087" stroke-width="2"/>
+              <rect x="45" y="122" width="84" height="70" rx="7" fill="#101b29" stroke="#3d596e"/>
+              <path d="M70 176 Q55 157 76 141 Q72 157 88 151 Q106 137 101 169 Q96 184 82 184Z" fill="#ff9b43" filter="url(#glow)"/>
+              <path d="M82 179 Q76 164 88 158 Q86 170 97 166 Q101 179 89 185Z" fill="#ffe18b"/>
+              <text x="87" y="215" class="svg-label" text-anchor="middle">KOTEL</text>
+              <text x="87" y="232" class="svg-sub" text-anchor="middle">OPOP · DEMO</text>
+              <!-- accumulator -->
+              <rect x="340" y="75" width="170" height="250" rx="48" fill="url(#tank)" stroke="#638398" stroke-width="3"/>
+              <path d="M350 143 H500 M350 205 H500 M350 267 H500" stroke="#7fa2b5" stroke-opacity=".35" stroke-dasharray="5 6"/>
+              <rect x="353" y="93" width="144" height="58" rx="25" fill="#f08a42" opacity=".23"/>
+              <rect x="353" y="154" width="144" height="65" rx="25" fill="#e8bd59" opacity=".18"/>
+              <rect x="353" y="222" width="144" height="88" rx="25" fill="#55a8d2" opacity=".2"/>
+              <text x="425" y="190" class="svg-label" text-anchor="middle">AKUMULACE</text>
+              <text x="425" y="210" class="svg-sub" text-anchor="middle">1000 l</text>
+              <text x="425" y="125" class="tank-temp" text-anchor="middle" id="svg-top">72°</text>
+              <text x="425" y="185" class="tank-temp" text-anchor="middle" id="svg-mid">58°</text>
+              <text x="425" y="280" class="tank-temp" text-anchor="middle" id="svg-bottom">39°</text>
+              <!-- radiator -->
+              <rect x="590" y="170" width="83" height="65" rx="8" fill="#17293a" stroke="#66869b" stroke-width="2"/>
+              <path d="M602 179 V225 M615 179 V225 M628 179 V225 M641 179 V225 M654 179 V225" stroke="#8eb2c5" stroke-width="5" stroke-linecap="round"/>
+              <text x="631" y="254" class="svg-label" text-anchor="middle">RADIÁTORY</text>
+              <text x="631" y="270" class="svg-sub" text-anchor="middle">OKRUH</text>
+              <!-- pump -->
+              <circle cx="565" cy="202" r="17" fill="#15283a" stroke="#8ba9bb" stroke-width="2"/>
+              <path d="M558 194 L574 202 L558 210Z" fill="#57d4c2"/>
+              <text x="565" y="295" class="svg-sub" text-anchor="middle">ČERPADLO</text>
+              <!-- sensor labels -->
+              <g class="sensor-dot"><circle cx="220" cy="78" r="6"/><text x="230" y="61">VÝSTUP</text></g>
+              <g class="sensor-dot"><circle cx="220" cy="280" r="6"/><text x="230" y="301">ZPÁTEČKA</text></g>
+              <circle cx="640" cy="78" r="5" fill="#f5a34c"/>
+            </svg>
+            <div class="legend"><span><i class="dot hot"></i> Výstupní větev</span><span><i class="dot cold"></i> Zpátečka</span><span><i class="dot moving"></i> Proudění</span></div>
+          </div>
+          <div class="side-stack">
+            <div class="metric-card accent-orange"><div class="metric-label">KOTEL · VÝSTUP</div><div class="metric-value"><span id="boiler-temp">68.4</span><small>°C</small></div><div class="metric-foot"><span class="status-dot"></span> Hoření · simulováno</div></div>
+            <div class="metric-card"><div class="metric-label">AKUMULACE · HORNÍ</div><div class="metric-value"><span id="top-temp">72.1</span><small>°C</small></div><div class="metric-foot">Střed <b id="mid-temp">58.3 °C</b></div></div>
+            <div class="metric-card accent-blue"><div class="metric-label">RADIÁTOROVÝ OKRUH</div><div class="metric-value"><span id="supply-temp">46.8</span><small>°C</small></div><div class="metric-foot">Zpátečka <b id="return-temp">38.2 °C</b></div></div>
+          </div>
+        </div>
+        <div class="section-head compact"><div><div class="eyebrow">TECHNOLOGIE</div><h2>Aktuální stavy</h2></div></div>
+        <div class="status-grid">
+          <div class="status-card"><div class="status-icon">◉</div><div><b>Čerpadlo kotle</b><small id="pump-boiler">Běží</small></div><span class="state-on">ON</span></div>
+          <div class="status-card"><div class="status-icon">◉</div><div><b>Čerpadlo topení</b><small id="pump-heat">Běží</small></div><span class="state-on">ON</span></div>
+          <div class="status-card"><div class="status-icon">⌁</div><div><b>Směšovací ventil</b><small>Otevření 42 %</small></div><span class="state-on">AUTO</span></div>
+          <div class="status-card"><div class="status-icon">▣</div><div><b>Centrální jednotka</b><small>Raspberry Pi 4</small></div><span class="state-on">ONLINE</span></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-charts">
+        <div class="section-head"><div><div class="eyebrow">HISTORIE A TRENDY</div><h1>Teplotní grafy</h1></div><div class="tiny-tag">SIMULOVANÁ DATA</div></div>
+        <div class="panel chart-panel">
+          <div class="chart-top"><div><div class="panel-title">TEPLOTY V ČASE</div><div class="chart-current"><b id="chart-current">72.1 °C</b><span>Akumulace – horní čidlo</span></div></div><div class="range-switch"><button class="range active" data-range="6">6 h</button><button class="range" data-range="12">12 h</button><button class="range" data-range="24">24 h</button></div></div>
+          <div class="chart-wrap"><canvas id="temp-chart"></canvas></div>
+          <div class="chart-legend"><span><i class="line orange"></i>Kotel</span><span><i class="line yellow"></i>Akumulace</span><span><i class="line blue"></i>Radiátory</span></div>
+        </div>
+        <div class="section-head compact"><div><div class="eyebrow">HODNOTY</div><h2>Čidla</h2></div></div>
+        <div class="sensor-list">
+          <div><span class="sensor-name"><i class="dot hot"></i>Kotel – výstup</span><b id="sensor-boiler">68.4 °C</b></div>
+          <div><span class="sensor-name"><i class="dot yellow"></i>Akumulace – horní</span><b id="sensor-top">72.1 °C</b></div>
+          <div><span class="sensor-name"><i class="dot yellow"></i>Akumulace – střed</span><b id="sensor-mid">58.3 °C</b></div>
+          <div><span class="sensor-name"><i class="dot blue"></i>Radiátory – přívod</span><b id="sensor-supply">46.8 °C</b></div>
+          <div><span class="sensor-name"><i class="dot blue"></i>Radiátory – zpátečka</span><b id="sensor-return">38.2 °C</b></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-control">
+        <div class="section-head"><div><div class="eyebrow">UŽIVATELSKÉ NASTAVENÍ</div><h1>Regulace</h1></div><div class="tiny-tag">DEMO REŽIM</div></div>
+        <div class="notice"><span>ⓘ</span><div><b>Simulované ovládání</b><small>Změny se ukládají pouze v této ukázce. Skutečná regulace není připojena.</small></div></div>
+        <div class="panel settings-panel">
+          <div class="setting-row"><div><b>Požadovaná teplota akumulace</b><small>Horní čidlo · cílová hodnota</small></div><strong><span id="set-tank-label">75</span> °C</strong></div>
+          <input id="set-tank" type="range" min="55" max="85" value="75">
+          <div class="slider-labels"><span>55 °C</span><span>85 °C</span></div>
+          <div class="setting-row"><div><b>Požadovaná teplota topení</b><small>Přívod do radiátorů</small></div><strong><span id="set-heat-label">45</span> °C</strong></div>
+          <input id="set-heat" type="range" min="25" max="65" value="45">
+          <div class="slider-labels"><span>25 °C</span><span>65 °C</span></div>
+          <div class="setting-row"><div><b>Minimální teplota kotle</b><small>Ochranná mez · ukázková hodnota</small></div><strong><span id="set-boiler-label">65</span> °C</strong></div>
+          <input id="set-boiler" type="range" min="50" max="80" value="65">
+          <div class="slider-labels"><span>50 °C</span><span>80 °C</span></div>
+          <button class="primary-btn" id="save-settings">Potvrdit nastavení <span>→</span></button>
+          <div class="saved" id="saved-msg">✓ Nastavení bylo v demo režimu potvrzeno.</div>
+        </div>
+        <div class="panel info-panel"><div class="panel-title">POSLEDNÍ PŘÍKAZ</div><p id="last-command">Zatím nebyla provedena žádná změna.</p><small>V ostré verzi bude aplikace rozlišovat přijetí příkazu a jeho skutečné provedení regulační jednotkou.</small></div>
+      </section>
+
+      <section class="page" id="page-system">
+        <div class="section-head"><div><div class="eyebrow">INFRASTRUKTURA</div><h1>Systém</h1></div><div class="tiny-tag">4 ZAŘÍZENÍ</div></div>
+        <div class="panel system-panel">
+          <div class="panel-title">ŘÍDICÍ JEDNOTKY</div>
+          <div class="device"><div class="device-icon">π</div><div class="device-main"><b>Raspberry Pi 4</b><small>Centrální server · SQLite API (plán)</small><small>Poslední kontakt: právě teď</small></div><span class="state-on">ONLINE</span></div>
+          <div class="device"><div class="device-icon">ESP</div><div class="device-main"><b>ESP – kotelna</b><small>Teplotní čidla a výstupy</small><small>Poslední kontakt: před 4 s</small></div><span class="state-on">ONLINE</span></div>
+          <div class="device"><div class="device-icon">ESP</div><div class="device-main"><b>ESP – topný okruh</b><small>Čerpadlo a směšovací ventil</small><small>Poslední kontakt: před 6 s</small></div><span class="state-on">ONLINE</span></div>
+          <div class="device"><div class="device-icon">DB</div><div class="device-main"><b>SQLite databáze</b><small>Lokální databáze · demo bez připojení</small><small>Čeká na napojení skutečného schématu</small></div><span class="state-wait">DEMO</span></div>
+        </div>
+        <div class="panel diagnostics"><div class="panel-title">DIAGNOSTIKA</div><div class="diag-row"><span>Dostupnost systému</span><b class="good">100 %</b></div><div class="diag-row"><span>Komunikace API</span><b class="muted">Nepřipojeno</b></div><div class="diag-row"><span>Datový zdroj</span><b class="muted">Simulátor</b></div><div class="diag-row"><span>Verze aplikace</span><b>0.1.0-demo</b></div></div>
+      </section>
+    </main>
+
+    <nav class="tabbar">
+      <button class="tab active" data-page="overview"><span>⌂</span><small>Přehled</small></button>
+      <button class="tab" data-page="charts"><span>⌁</span><small>Grafy</small></button>
+      <button class="tab" data-page="control"><span>⚙</span><small>Regulace</small></button>
+      <button class="tab" data-page="system"><span>▦</span><small>Systém</small></button>
+    </nav>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
