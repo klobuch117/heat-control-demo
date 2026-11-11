@@ -109,4 +109,4 @@ window.addEventListener('pageshow',()=>{
   if(document.body.classList.contains('auth-locked')) setTimeout(()=>loginInput.focus(),100);
 });
 
-if ('serviceWorker' in navigator && location.protocol.startsWith('http')) { window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{})); }
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) { window.addEventListener('load', async()=>{ try { const registration=await navigator.serviceWorker.register('./sw.js?v=0.2.1',{updateViaCache:'none'}); registration.update().catch(()=>{}); } catch (_) {} }); }

@@ -1,65 +1,37 @@
-HEAT CONTROL – DEMO 0.2.0
+HEAT CONTROL – DEMO 0.2.1
 ==========================
 
-Co demo umí
------------
-- Přehled kotle, akumulační nádrže a radiátorového okruhu.
-- Animované schéma proudění tepla.
-- Simulované teploty, které se průběžně mírně mění.
-- Grafy za 6, 12 a 24 hodin.
-- Nastavování tří ukázkových požadovaných hodnot.
-- Přehled zařízení a diagnostiky.
-- Rozhraní přizpůsobené iPhonu.
-- Přihlašovací obrazovka při každém otevření stránky.
-- Vzorový přístupový kód: 1234.
-- Ruční odhlášení a opětovné přihlášení po návratu z pozadí.
+Tato aktualizace obsahuje přihlašovací obrazovku zobrazovanou ihned po spuštění.
+Vzorový přístupový kód: 1234.
+Verze 0.2.1 je viditelná také v hlavičce aplikace a na stránce Systém.
 
-DŮLEŽITÉ
---------
-Jde o demonstrační aplikaci. Přihlášení s kódem 1234 je pouze ukázka na straně prohlížeče;
-nepředstavuje skutečné zabezpečení a heslo lze zjistit ze zdrojových souborů.
-Nepoužívej zde skutečné heslo ani citlivá data. Aplikace nečte skutečnou SQLite databázi, neposílá příkazy
-na Raspberry Pi/ESP a nijak neovládá kotel. Všechna data jsou simulovaná.
+NASAZENÍ NA GITHUB PAGES – DŮLEŽITÉ
+----------------------------------
+Tento ZIP má soubory přímo v kořenové složce archivu (bez další podsložky).
+1. ZIP rozbal.
+2. V GitHub repository otevři kořenovou složku (root).
+3. Nahraj VŠECHNY soubory z rozbalené složky a potvrď přepsání souborů:
+   index.html, app.js, style.css, sw.js, manifest.webmanifest,
+   icon-192.png, icon-512.png, README.txt.
+4. Počkej na dokončení GitHub Pages deploymentu.
+5. Nejdřív otevři adresu webu přímo v Safari a obnov stránku.
+6. Ověř, že je v hlavičce uvedeno DEMO 0.2.1 a že se zobrazí přihlášení.
+7. Teprve pak spusť ikonu na ploše. Když stále ukazuje starou verzi,
+   aplikaci úplně zavři, v Safari otevři adresu webu znovu a obnov ji.
+8. Pokud se pořád načítá stará verze, odstraň ikonu HEAT CONTROL z plochy,
+   v Nastavení iPhonu > Safari > Pokročilé > Data stránek smaž data pouze
+   pro doménu GitHub Pages daného webu, znovu otevři web v Safari a přidej
+   jej na plochu znovu.
 
-INSTALACE NA IPHONE – DOPORUČENÁ CESTA PŘES HTTPS
--------------------------------------------------
-Pro instalaci jako webové aplikace je potřeba aplikaci zpřístupnit přes HTTPS.
-Nejjednodušší bez Macu je GitHub Pages:
+FUNKCE PŘIHLÁŠENÍ
+-----------------
+- Po každém novém spuštění se zobrazí přihlašovací obrazovka.
+- PIN: 1234.
+- Tlačítko Odhlásit vrátí aplikaci na přihlašovací obrazovku.
+- Při přechodu aplikace do pozadí se demo uzamkne.
 
-1. Na Windows rozbal ZIP.
-2. Přihlas se na https://github.com/ nebo si vytvoř účet.
-3. Vytvoř nový veřejný repository, např. heat-control-demo.
-4. Nahraj do něj OBSAH složky heat_control_demo (index.html, app.js,
-   style.css, manifest.webmanifest, sw.js a obě ikony).
-5. V repository otevři Settings > Pages.
-6. V části Build and deployment zvol Deploy from a branch.
-7. Vyber branch main a složku /(root), potvrď Save.
-8. Počkej, až GitHub Pages zveřejní adresu ve tvaru
-   https://TVUJ-UCET.github.io/heat-control-demo/
-9. Otevři tuto adresu přímo na iPhonu v Safari.
-10. Klepni na Sdílet (čtvereček se šipkou nahoru) > Přidat na plochu.
-11. Potvrď Přidat. Ikona HEAT CONTROL se objeví na ploše.
-12. Spusť aplikaci z ikony. Po prvním načtení bude základní obsah dostupný
-    i offline díky service workeru.
-
-POZNÁMKA K SOUKROMÍ
--------------------
-Pokud použiješ veřejné GitHub Pages, demo bude veřejně dostupné každému,
-kdo zná adresu. Neobsahuje žádná skutečná data ani přihlašovací údaje.
-Přihlašovací obrazovka sama o sobě nezabezpečuje veřejně hostovanou aplikaci ani její data.
-Pro pozdější napojení na domácí systém zvolíme skutečné ověření na API a privátní přístup přes Tailscale
-a API na Raspberry Pi; tajné klíče se nikdy nevkládají do front-endu.
-
-LOKÁLNÍ NÁHLED NA WINDOWS
--------------------------
-Pokud máš Python:
-1. Otevři PowerShell ve složce s index.html.
-2. Spusť:  py -m http.server 8000
-3. Na počítači otevři: http://localhost:8000
-To slouží pro rychlý náhled. Pro instalaci do iPhonu použij HTTPS postup výše.
-
-DALŠÍ KROK
+UPOZORNĚNÍ
 ----------
-Až demo vyzkoušíš, upravíme schéma podle skutečného zapojení a napojíme data
-na bezpečné API na Raspberry Pi 4. Nejdřív bude potřeba struktura SQLite
-(.schema), kterou jsme si domluvili.
+PIN je pouze demonstrační kontrola na straně prohlížeče a není skutečným
+zabezpečením. Všechny teploty a akční prvky zůstávají simulované. Aplikace
+není připojena k Raspberry Pi, SQLite ani skutečným výstupům topení.
